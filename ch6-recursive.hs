@@ -20,7 +20,7 @@ product' (n:ns) = n * product' ns
 
 length' :: [a] -> Int
 length' []    = 0
-length (_:xs) = 1 + length' xs
+length' (_:xs) = 1 + length' xs
 
 reverse' :: [a] -> [a]
 reverse' [] = []
@@ -46,3 +46,52 @@ quickSort (x:xs) = quickSort ls ++ [x] ++ quickSort us
                     where 
                       ls = [a | a <- xs, a <= x]
                       us = [b | b <- xs, b >  x]
+
+-- Excercises
+-- and 
+and' :: [Bool] -> Bool
+and' []     = True
+and' (b:bs) = b && and' bs  
+
+-- concat
+concat' :: [[a]] -> [a]
+concat' []       = []
+concat' (xs:xss) = xs ++ concat' xss
+
+-- replicate
+replicate' :: Int -> a -> [a]
+replicate' 0 _ = []
+replicate' n a = a : replicate (n-1) a
+
+-- (!!)
+-- indexing :: [a] -> Int -> a
+-- (x:xs) indexing 0 = x
+-- (x:xs) indexing n = xs indexing (n -1)
+
+-- insertion sort
+insert :: Int -> [Int] -> [Int]
+insert x [] = [x]
+insert x (y:ys) = if x <= y 
+                    then x : y : ys 
+                    else y : insert x ys
+
+iSort :: [Int] -> [Int]
+iSort []     = []
+iSort (x:xs) = insert x (iSort xs)
+
+-- merge sort
+halve :: [a] -> ([a], [a])
+halve xs = ((take s xs), (drop s xs)) 
+            where s = (length' xs) `div` 2
+
+merge :: [Int] -> [Int] -> [Int]
+merge xs [] = xs
+merge [] ys = ys
+merge (x:xs) (y:ys) = if x <= y 
+                        then x : merge xs (y:ys)
+                        else y : merge ys (x:xs)
+
+mSort :: [Int] -> [Int]
+mSort []            = []
+mSort [x]           = [x]
+mSort xs = merge (mSort ys) (mSort zs) where (ys, zs) = halve xs 
