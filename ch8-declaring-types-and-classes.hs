@@ -43,4 +43,6 @@ switch Yes     = No
 switch No      = Yes
 switch Unknown = Unknown
 
+-- Recursive Types
+data Nat = Zero | Succ Nat
 
