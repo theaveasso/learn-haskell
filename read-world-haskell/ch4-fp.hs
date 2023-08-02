@@ -9,9 +9,9 @@ splitLines xs =
     let (pre, suf) = break isLineTerminator xs
      in pre : case suf of
             ('\r' : '\n' : rest) -> splitLines rest
-            ('\r' : rest)        -> splitLines rest
-            ('\n' : rest)        -> splitLines rest
-            _                    -> []
+            ('\r' : rest) -> splitLines rest
+            ('\n' : rest) -> splitLines rest
+            _ -> []
 
 isLineTerminator :: Char -> Bool
 isLineTerminator c = c == '\r' || c == '\n'
@@ -31,17 +31,17 @@ fixLines i = unlines (splitLines i)
 
 -- safe definition
 safeHead :: [a] -> Maybe a
-safeHead []    = Nothing
-safeHead (x:_) = Just x
+safeHead [] = Nothing
+safeHead (x : _) = Just x
 
 safeTail :: [a] -> Maybe [a]
-safeTail []     = Nothing
-safeTail (_:xs) = Just xs
+safeTail [] = Nothing
+safeTail (_ : xs) = Just xs
 
 safeLast :: [a] -> Maybe a
 safeLast [] = Nothing
 safeLast xs = safeHead $ reverse xs
 
 safeInit :: [a] -> Maybe a
-safeInit []  = Nothing
-safeInit xs =  Just (init xs)
+safeInit [] = Nothing
+safeInit xs = Just (init xs)
