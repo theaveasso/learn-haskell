@@ -99,3 +99,13 @@ cars = [("Toyota", 0), ("Nissan", 3), ("Ford", 1)]
 
 hIfAnyCarsLeft :: [(String, Int)] -> String -> Bool
 hIfAnyCarsLeft xs brand = any (\(b, n) -> b == brand && n > 0) xs
+
+-- simple function
+square' :: (Num a) => a -> a
+square' x = x * x
+
+squareInList :: (Num a) => [a] -> [a]
+squareInList xs = map square' xs
+
+sumEvenSquare :: [Int] -> Int
+sumEvenSquare xs = sum (map (\x -> x * x) (filter even xs))
